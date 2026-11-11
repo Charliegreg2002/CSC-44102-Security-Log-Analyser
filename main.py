@@ -1,21 +1,14 @@
-import csv
-
-def load_logs(filename):
-    records = []
-
-    with open(filename, "r", newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
-
-        for row in reader:
-            records.append(row)
-
-    return records
+from log_analyser import load_logs
 
 
 def main():
     print("=== Security Log Analyser ===")
 
-    logs = load_logs("sample_logs.csv")
+    try:
+        logs = load_logs("sample_logs.csv")
+    except FileNotFoundError:
+        print("Error: The selected CSV file could not be found.")
+        return
 
     for log in logs:
         print(log)
